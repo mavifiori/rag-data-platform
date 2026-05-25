@@ -1,6 +1,6 @@
 # RAG - Retrieval-Augmented Generation
 
-Projeto de exemplo para arquitetura RAG com ingestão de documentos, vetorização, armazenamento em banco vetorial, e interface de consulta via API e front-end.
+Projeto de  arquitetura RAG com ingestão de documentos, vetorização, armazenamento em banco vetorial, e interface de consulta via API e front-end.
 
 ## 🚀 Objetivo
 
