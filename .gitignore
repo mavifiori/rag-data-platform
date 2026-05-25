@@ -1,0 +1,78 @@
+# ==========================================
+# 1. Ambientes Virtuais e Dependências (Python)
+# ==========================================
+venv/
+.venv/
+env/
+bin/
+lib/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ==========================================
+# 2. Caches do Python e Ferramentas de Teste
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints
+
+# ==========================================
+# 3. Engenharia de Dados e IA (Pesados/Locais)
+# ==========================================
+# Ignora os modelos baixados e dados persistidos do Ollama localmente
+.ollama/
+ollama_data/
+
+# Ignora os dados persistidos do PostgreSQL e MinIO locais
+postgres_data/
+minio_data/
+
+# Ignora a pasta local de upload onde o Watchdog fica escutando
+# (Você não quer subir os PDFs de teste dos usuários para o Git)
+src/app/data/
+data/
+*.pdf
+*.txt
+*.csv
+*.md
+!README.md # Permite apenas o README.md do projeto
+
+# ==========================================
+# 4. Segurança e Configurações Sensíveis
+# ==========================================
+# NUNCA suba suas senhas e chaves de acesso reais
+.env
+.env.local
+.env.*.local
+*.secret
+credentials.json
+
+# ==========================================
+# 5. Sistema Operacional e IDEs
+# ==========================================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+.DS_Store
+Thumbs.db
