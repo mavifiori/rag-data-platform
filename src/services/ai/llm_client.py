@@ -29,7 +29,27 @@ class LLMClient:
 
         return "Não foi possível obter resposta do modelo."
 
+    def _model_available(self) -> bool:
+        try:
+            response = requests.get(f"{self.endpoint}/v1/models", timeout=20)
+            response.raise_for_status()
+            payload = response.json()
+            if isinstance(payload, list):
+                return any(item == self.model_name or (isinstance(item, dict) and item.get("name") == self.model_name) for item in payload)
+            if isinstance(payload, dict):
+                models = payload.get("models") or payload.get("items") or []
+                return any(item == self.model_name or (isinstance(item, dict) and item.get("name") == self.model_name) for item in models)
+        except requests.RequestException:
+            return False
+        return False
+
     def generate_response(self, prompt: str) -> str:
+        if not self._model_available():
+            return (
+                "Desculpe, o modelo de LLM não está disponível no servidor Ollama. "
+                "Verifique se o modelo está instalado e o serviço Ollama está executando corretamente."
+            )
+
         url = f"{self.endpoint}/v1/models/{self.model_name}/generate"
         payload = {
             "model": self.model_name,

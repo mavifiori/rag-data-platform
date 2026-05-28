@@ -50,9 +50,11 @@ src/app/data/
 data/
 *.pdf
 *.txt
+!requirements.txt  
 *.csv
 *.md
-!README.md # Permite apenas o README.md do projeto
+
+# !README.md # Permite apenas o README.md do projeto
 
 # ==========================================
 # 4. Segurança e Configurações Sensíveis

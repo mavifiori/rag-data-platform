@@ -1,6 +1,7 @@
-import os
+from functools import lru_cache
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
+
 
 class Settings(BaseSettings):
     """
@@ -40,5 +41,26 @@ class Settings(BaseSettings):
         extra="ignore" # Ignora variáveis de ambiente extras que não estão mapeadas aqui
     )
 
-# Instancia o objeto de configurações como um Singleton global
-settings = Settings()
+
+@lru_cache(maxsize=1)
+def get_settings() -> "Settings":
+    """Cria e memoiza a instância de Settings somente no primeiro uso."""
+    return Settings()
+
+
+class _SettingsProxy:
+    """Proxy preguiçoso para adiar a validação/instanciação das configurações."""
+
+    def __getattr__(self, name):
+        return getattr(get_settings(), name)
+
+    def __dir__(self):
+        return sorted(set(super().__dir__()) | set(dir(get_settings())))
+
+    def __repr__(self):
+        return repr(get_settings())
+
+
+# Exposição compatível com o código existente: o acesso a atributos continua funcionando,
+# mas a instância real só é criada quando algum atributo é solicitado.
+settings = _SettingsProxy()

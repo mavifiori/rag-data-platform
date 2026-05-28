@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # --- BANCO DE DADOS (PostgreSQL + pgvector) ---
   postgres:
@@ -40,6 +38,8 @@ services:
     container_name: rag_ollama
     ports:
       - "11434:11434"
+    environment:
+      - OLLAMA_HOST=0.0.0.0
     volumes:
       - ollama_data:/root/.ollama
     command: ["serve"]
@@ -47,7 +47,7 @@ services:
       test: ["CMD-SHELL", "curl -f http://localhost:11434/ >/dev/null 2>&1"]
       interval: 10s
       timeout: 5s
-      retries: 10
+      retries: 10  
 
   # --- SERVIÇO 1: FastAPI ---
   api:
