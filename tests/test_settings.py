@@ -4,9 +4,10 @@ import unittest
 from unittest import mock
 
 
+
 class SettingsLazyLoadingTest(unittest.TestCase):
     def test_settings_proxy_delays_instance_creation_until_first_access(self):
-        import src.config.settings as settings_module
+        import config.settings as settings_module
 
         with mock.patch.dict(os.environ, {}, clear=True):
             reloaded = importlib.reload(settings_module)
